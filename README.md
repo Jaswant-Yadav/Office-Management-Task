@@ -8,6 +8,8 @@ A simple Office Management System demonstrating:
 - EJS views (TailwindCSS)
 - Dynamic Country → State → City using CountriesNow API
 
+## Live Server    https://office-management-task.onrender.com
+
 ## Quick Start
 
 ```bash

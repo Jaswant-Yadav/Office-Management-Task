@@ -1,0 +1,136 @@
+{
+  "info": {
+    "name": "Office Management API",
+    "_postman_id": "3e3a1b50-aaaa-bbbb-cccc-1234567890ab",
+    "description": "CRUD + pagination/search/filters",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Departments",
+      "item": [
+        {
+          "name": "List",
+          "request": {
+            "method": "GET",
+            "url": "{{base}}/api/departments"
+          }
+        },
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "url": "{{base}}/api/departments",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\\n  \\\"name\\\": \\\"Engineering\\\",\\n  \\\"description\\\": \\\"Builds things\\\"\\n}"
+            }
+          }
+        },
+        {
+          "name": "Get by id",
+          "request": {
+            "method": "GET",
+            "url": "{{base}}/api/departments/:id"
+          }
+        },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PUT",
+            "url": "{{base}}/api/departments/:id",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\\n  \\\"name\\\": \\\"Engineering\\\",\\n  \\\"description\\\": \\\"Updated\\\"\\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base}}/api/departments/:id"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Employees",
+      "item": [
+        {
+          "name": "List (filters)",
+          "request": {
+            "method": "GET",
+            "url": "{{base}}/api/employees?search=john&department={{deptId}}&jobTitle=manager&page=1&limit=10"
+          }
+        },
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "url": "{{base}}/api/employees",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\\n  \\\"firstName\\\":\\\"John\\\",\\n  \\\"lastName\\\":\\\"Doe\\\",\\n  \\\"email\\\":\\\"john.doe@example.com\\\",\\n  \\\"jobTitle\\\":\\\"Manager\\\",\\n  \\\"department\\\":\\\"{{deptId}}\\\",\\n  \\\"supervisor\\\": null,\\n  \\\"country\\\":\\\"India\\\",\\n  \\\"state\\\":\\\"Gujarat\\\",\\n  \\\"city\\\":\\\"Ahmedabad\\\"\\n}"
+            }
+          }
+        },
+        {
+          "name": "Get by id",
+          "request": {
+            "method": "GET",
+            "url": "{{base}}/api/employees/:id"
+          }
+        },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PUT",
+            "url": "{{base}}/api/employees/:id",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\\n  \\\"jobTitle\\\":\\\"Senior Manager\\\"\\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base}}/api/employees/:id"
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base",
+      "value": "http://localhost:3000"
+    }
+  ]
+}

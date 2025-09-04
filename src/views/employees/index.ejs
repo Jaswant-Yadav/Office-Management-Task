@@ -1,0 +1,63 @@
+<% layout('layout') %>
+
+<div class="flex items-center justify-between mb-4">
+  <h1 class="text-xl font-semibold">Employees</h1>
+  <a class="bg-blue-600 text-white px-4 py-2 rounded" href="/employees/new">New Employee</a>
+</div>
+
+<form class="bg-white shadow rounded p-3 mb-4 flex flex-wrap gap-2" method="get" action="/employees">
+  <input class="border px-3 py-2 rounded" type="text" name="search" placeholder="Search name/email" value="<%= (filters.search||'') %>" />
+  <select class="border px-3 py-2 rounded" name="department">
+    <option value="">All Departments</option>
+    <% departments.forEach(d => { %>
+      <option value="<%= d._id %>" <%= (filters.department===String(d._id))?'selected':'' %>><%= d.name %></option>
+    <% }) %>
+  </select>
+  <input class="border px-3 py-2 rounded" type="text" name="jobTitle" placeholder="Job title" value="<%= (filters.jobTitle||'') %>" />
+  <button class="bg-gray-800 text-white px-4 py-2 rounded">Filter</button>
+</form>
+
+<div class="overflow-x-auto">
+<table class="w-full bg-white shadow rounded overflow-hidden">
+  <thead class="bg-gray-100">
+    <tr>
+      <th class="text-left p-3">Name</th>
+      <th class="text-left p-3">Email</th>
+      <th class="text-left p-3">Title</th>
+      <th class="text-left p-3">Department</th>
+      <th class="text-left p-3">Supervisor</th>
+      <th class="p-3">Location</th>
+      <th class="p-3">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% employees.forEach(e => { %>
+    <tr class="border-t">
+      <td class="p-3"><%= e.firstName %> <%= e.lastName %></td>
+      <td class="p-3"><%= e.email %></td>
+      <td class="p-3"><%= e.jobTitle %></td>
+      <td class="p-3"><%= e.department?.name %></td>
+      <td class="p-3">
+        <% if (e.supervisor) { %>
+          <%= e.supervisor.firstName %> <%= e.supervisor.lastName %>
+        <% } else { %>-<% } %>
+      </td>
+      <td class="p-3"><%= [e.city, e.state, e.country].filter(Boolean).join(', ') %></td>
+      <td class="p-3">
+        <a class="bg-green-600 text-white px-3 py-1 rounded" href="/employees/<%= e._id %>/edit">Edit</a>
+        <form class="inline" method="post" action="/employees/<%= e._id %>/delete">
+          <button class="bg-red-600 text-white px-3 py-1 rounded">Delete</button>
+        </form>
+      </td>
+    </tr>
+  <% }) %>
+  </tbody>
+</table>
+</div>
+
+<!-- Pagination -->
+<div class="mt-4 flex items-center gap-2">
+  <% for (let i=1;i<=meta.pages;i++){ %>
+    <a class="px-3 py-1 rounded border <%= (i===meta.page)?'bg-gray-900 text-white':'' %>" href="?<%= Object.entries({ ...filters, page:i }).filter(([,v])=>v).map(([k,v])=>`${k}=${encodeURIComponent(v)}`).join('&') %>"><%= i %></a>
+  <% } %>
+</div>

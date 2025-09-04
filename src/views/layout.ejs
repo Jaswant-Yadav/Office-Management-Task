@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Office Management</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 font-sans text-gray-900">
+  <header class="bg-blue-600 text-white p-4 shadow-md">
+    <nav class="flex justify-between items-center max-w-7xl mx-auto">
+      <div class="text-xl font-bold">
+        <h1>Office Management System</h1>
+      </div>
+      <div class="space-x-6 font-bold">
+        <a href="/" class="hover:text-gray-300">Home</a>
+        <a href="/departments" class="hover:text-gray-300">Departments</a>
+        <a href="/employees" class="hover:text-gray-300">Employees</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="py-8 px-4 sm:px-6 lg:px-8">
+    <%- body %> <!-- Express-ejs-layouts injects the child view here -->
+  </main>
+</body>
+</html>

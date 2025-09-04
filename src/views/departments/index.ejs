@@ -1,0 +1,37 @@
+<% layout('layout') %>
+<div class="flex items-center justify-between mb-4">
+  <h1 class="text-xl font-semibold">Departments</h1>
+  <form class="flex gap-2" method="post" action="/departments">
+    <input name="name" required placeholder="Name" class="border px-3 py-2 rounded" />
+    <input name="description" placeholder="Description" class="border px-3 py-2 rounded" />
+    <button class="bg-blue-600 text-white px-4 py-2 rounded">Add</button>
+  </form>
+</div>
+
+<table class="w-full bg-white shadow rounded overflow-hidden">
+  <thead class="bg-gray-100">
+    <tr>
+      <th class="text-left p-3">Name</th>
+      <th class="text-left p-3">Description</th>
+      <th class="p-3">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% departments.forEach(d => { %>
+    <tr class="border-t">
+      <td class="p-3"><%= d.name %></td>
+      <td class="p-3"><%= d.description %></td>
+      <td class="p-3">
+        <form class="inline" method="post" action="/departments/<%= d._id %>">
+          <input type="text" name="name" value="<%= d.name %>" class="border px-2 py-1 rounded" />
+          <input type="text" name="description" value="<%= d.description %>" class="border px-2 py-1 rounded" />
+          <button class="bg-green-600 text-white px-3 py-1 rounded">Update</button>
+        </form>
+        <form class="inline" method="post" action="/departments/<%= d._id %>/delete">
+          <button class="bg-red-600 text-white px-3 py-1 rounded">Delete</button>
+        </form>
+      </td>
+    </tr>
+  <% }) %>
+  </tbody>
+</table>

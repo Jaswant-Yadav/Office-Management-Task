@@ -1,0 +1,44 @@
+<% layout('layout') %>
+<h1 class="text-xl font-semibold mb-4"><%= isEdit ? 'Edit' : 'Create' %> Employee</h1>
+
+<form method="post" action="<%= isEdit ? '/employees/'+employee._id : '/employees' %>" class="bg-white shadow rounded p-4 grid md:grid-cols-2 gap-4">
+  <input class="border px-3 py-2 rounded" name="firstName" required placeholder="First name" value="<%= employee.firstName || '' %>" />
+  <input class="border px-3 py-2 rounded" name="lastName" required placeholder="Last name" value="<%= employee.lastName || '' %>" />
+  <input class="border px-3 py-2 rounded md:col-span-2" name="email" required type="email" placeholder="Email" value="<%= employee.email || '' %>" />
+  <input class="border px-3 py-2 rounded" name="jobTitle" placeholder="Job title" value="<%= employee.jobTitle || '' %>" />
+
+  <select class="border px-3 py-2 rounded" name="department" required>
+    <option value="">Select Department</option>
+    <% departments.forEach(d => { %>
+      <option value="<%= d._id %>" <%= String(employee.department)===String(d._id) ? 'selected':'' %>><%= d.name %></option>
+    <% }) %>
+  </select>
+
+  <select class="border px-3 py-2 rounded md:col-span-2" name="supervisor">
+    <option value="">No supervisor</option>
+    <% supervisors.forEach(s => { %>
+      <option value="<%= s._id %>" <%= String(employee.supervisor)===String(s._id) ? 'selected':'' %>>
+        <%= s.firstName %> <%= s.lastName %> - <%= s.email %>
+      </option>
+    <% }) %>
+  </select>
+
+  <!-- Location -->
+  <select id="country" class="border px-3 py-2 rounded" name="country" data-selected="<%= employee.country || '' %>">
+    <option value="">Country</option>
+  </select>
+  <select id="state" class="border px-3 py-2 rounded" name="state" data-selected="<%= employee.state || '' %>">
+    <option value="">State</option>
+  </select>
+  <select id="city" class="border px-3 py-2 rounded" name="city" data-selected="<%= employee.city || '' %>">
+    <option value="">City</option>
+  </select>
+
+  <div class="md:col-span-2 mt-2">
+    <button class="bg-blue-600 text-white px-5 py-2 rounded"><%= isEdit ? 'Update' : 'Create' %></button>
+    <a class="ml-2 underline" href="/employees">Cancel</a>
+  </div>
+</form>
+
+<script src="/js/location.js"></script>
+
